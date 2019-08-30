@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Eduard Garcia Castello"]
   spec.email         = ["edugarcas@gmail.com"]
 
-  spec.summary       = %q{Ruby Gem for forecasting software projects}
-  spec.description   = %q{Montecasting provides a set of forcasting techniques to be used on software project management or product development}
+  spec.summary       = %q{Ruby Gem for forecasting software projects (Work in progress)}
+  spec.description   = %q{Montecasting will provide a set of forcasting techniques to be used on software project management or product development. This gem is on its early stages, I'll keep adding functionality on following months.}
   spec.homepage      = "https://github.com/eddygarcas/montecasting"
   spec.license       = "MIT"
 
