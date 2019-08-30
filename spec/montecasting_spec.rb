@@ -1,7 +1,7 @@
 require 'time'
 RSpec.describe Montecasting do
 
-  array_of_cycle_times = [0.1, 0.1, 0.1, 0.1, 0.1, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3,15,16,26,50]
+  array_of_cycle_times = [0.1, 0.1, 0.1, 0.1, 0.1, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3,15]
   variance_array = [1,1,1,1,0,1,1,2,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 
   it "has a version number" do
@@ -10,6 +10,7 @@ RSpec.describe Montecasting do
 
   it "returns data to build a cycle time chart" do
     result = Montecasting::Charts.chart_cycle_time(array_of_cycle_times,0)
+    pp result
     expect(result).not_to be nil
   end
 

@@ -1,8 +1,6 @@
 # Montecasting
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/montecasting`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Montecasting will provide a set of forecasting techniques to be used on software project management or product development. 
 
 ## Installation
 
@@ -21,9 +19,46 @@ Or install it yourself as:
     $ gem install montecasting
 
 ## Usage
+#### Metrics
 
-TODO: Write usage instructions here
+    Montecasting::Metrics.variance array_of_time = []
 
+    Montecasting::Metrics.wip_limit array_of_time = [], start_date, end_date
+    
+    Montecasting::Metrics.thoughtput number_or_items, start_date, end_date
+    
+    Montecasting::Metrics.week_days start_date, end_date
+    
+#### Charts
+All methods in this section will be returned in a format that, so far, has been tested using rickshaw JavaScript toolkit for creating interactive real-time graphs.
+Checkout https://github.com/shutterstock/rickshaw for more information.
+
+    > Montecasting::Charts.chart_cycle_time array_of_time = [], round_to = 0.5
+    > [[{:x=>0, :y=>0},
+        {:x=>1, :y=>1},
+        {:x=>2, :y=>2},
+        {:x=>3, :y=>3},
+        {:x=>4, :y=>4},
+        ...
+        {:x=>15, :y=>15}],
+       [{:x=>0, :y=>5},
+        {:x=>1, :y=>20},
+        {:x=>2, :y=>8},
+        {:x=>3, :y=>3},
+        {:x=>4, :y=>0},
+        ...
+        {:x=>15, :y=>1}],
+       [{:x=>0, :y=>0.0},
+        {:x=>1, :y=>13.5},
+        {:x=>2, :y=>67.6},
+        {:x=>3, :y=>89.2},
+        {:x=>4, :y=>97.3},
+        ...
+        {:x=>15, :y=>97.3}]]
+        
+#### Forecasting
+Nothing implemented yet :-)
+    
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
