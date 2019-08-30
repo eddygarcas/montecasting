@@ -1,16 +1,30 @@
 require "montecasting/version"
 require_relative 'numeric'
+require_relative 'montecasting/array'
 
 module Montecasting
 
   #Metrics class will contains methods to get specific product development metrics pr
   class Metrics
-    def self.variance average_closed_points = 0, closed_by_sprint = []
+    def self.variance array_of_units = []
       variance = 0
-      closed_by_sprint.each {|spt|
-        variance += ((average_closed_points - spt.to_i) ** 2)
+      avg = array_of_units.map{|i| i.abs}.average
+      array_of_units.each {|spt|
+        variance += ((avg - spt) ** 2)
       }
-      Math.sqrt(variance).round(0)
+      Math.sqrt(variance)
+    end
+
+    def self.wip_limit(array_of_cycle_time, start_date, end_date = DateTime.now)
+      (array_of_cycle_time.map(&:abs).average * throughput(array_of_cycle_time.count,start_date,end_date))
+    end
+
+    def self.throughput number_of_issues, start_date, end_date =  DateTime.now
+      ((number_of_issues).to_f / week_days(start_date,end_date).count)
+    end
+
+    def self.week_days start_date, enddate = DateTime.now
+      (start_date..enddate).select { |day| !day.sunday? && !day.saturday? }
     end
   end
 
