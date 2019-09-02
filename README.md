@@ -1,4 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/montecasting.svg)](https://badge.fury.io/rb/montecasting)
+![Travis](https://travis-ci.org/eddygarcas/montecasting.svg?branch=master)
 
 # Montecasting
 
