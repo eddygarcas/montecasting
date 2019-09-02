@@ -33,4 +33,9 @@ RSpec.describe Montecasting do
     result = Montecasting::Metrics.throughput array_of_cycle_times.count,  (DateTime.now - 60),  DateTime.now
     pp result
   end
+
+  it "Percentage of cycle time at 2 days for instance" do
+    result = Montecasting::Metrics.percent_of_items_at array_of_cycle_times,2
+    pp result
+  end
 end

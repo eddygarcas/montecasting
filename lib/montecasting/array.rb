@@ -8,14 +8,6 @@ class Array
     }
   end
 
-  def each_sum_done key_status = [:done]
-    counter = 0
-    each {|issue|
-      counter += yield issue if key_status.include? issue.status.to_sym
-    }
-    counter
-  end
-
   def each_sum
     counter = 0
     each {|issue|
