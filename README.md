@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/montecasting.svg)](https://badge.fury.io/rb/montecasting)
+
 # Montecasting
 
 Montecasting will provide a set of forecasting techniques to be used on software project management or product development. 
