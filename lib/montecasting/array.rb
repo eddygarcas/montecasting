@@ -8,14 +8,6 @@ class Array
     }
   end
 
-  def each_sum
-    counter = 0
-    each {|issue|
-      counter += yield issue
-    }
-    counter
-  end
-
   def average
     inject {|sum, el| sum + el}.to_f / size
   end
