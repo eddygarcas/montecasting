@@ -14,6 +14,7 @@ RSpec.describe Montecasting do
 
   it "returns data to build a cycle time chart" do
     result = Montecasting::Charts.chart_cycle_time(array_of_cycle_times,0)
+    pp result.take(5)
     expect(result).not_to be nil
   end
 
@@ -33,7 +34,7 @@ RSpec.describe Montecasting do
 
   it "WIP limit for a given array of items" do
     result = Montecasting::Metrics.wip_limit array_of_cycle_times, (DateTime.now - 60),  DateTime.now
-    expect(result.round(2)).to be_between(43.to_f,46.to_f)
+    expect(result.round(2)).to be_between(43.to_f,47.to_f)
   end
 
   it "Calculate the throughput" do
@@ -55,7 +56,6 @@ RSpec.describe Montecasting do
   it "Get the project prediction from an array of takt times" do
     takt_times = Montecasting::Forecasting.takt_times ct_values,1000
     result = Montecasting::Forecasting.montecarlo takt_times,200,5
-    expect(result.include? 16).to be true
     expect(result.include? 14).to be true
     expect(result.include? 15).to be true
     expect(result.include? 17).to be false
@@ -73,5 +73,22 @@ RSpec.describe Montecasting do
   it "Send an array which contains things other than numbers" do
     result = Montecasting::Forecasting.takt_times ["34",nil,"names"],1000
     expect(result).to be_nil
+  end
+
+  it "Send an array of cycle time and returns an array containing data for a takt times chart" do
+    result = Montecasting::Charts.chart_takt_times(ct_values)
+    pp result
+    expect(result.size).to be 3
+    expect(result[0].first[:y]).to be_between(1,10)
+    expect(result[0].last[:y]).to be_between(1,40)
+    expect(result[2].last[:y]).to be > 90
+  end
+
+  it "Send an array of cycle times and returns an array containing data for a montecarlo chart" do
+    result = Montecasting::Charts.chart_montecarlo(ct_values,200,5)
+    pp result
+    expect(result[0].first[:y]).to be_between(400,600)
+    expect(result[1].last[:y]).to be < 50
+    expect(result[2].last[:y]).to be > 90
   end
 end
