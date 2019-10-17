@@ -2,6 +2,7 @@ require 'montecasting/version'
 require 'montecasting/numeric'
 require 'montecasting/array'
 require 'montecasting/hash'
+require 'matrix'
 
 module Montecasting
 
