@@ -54,7 +54,7 @@ module Montecasting
 
     def self.montecarlo(takt_times = [], backlog_items = 0, days_iteration = 0)
       return nil unless takt_times.all? Numeric
-      takt_times.map {|tt| ((tt * backlog_items) / days_iteration).round(0)}
+      takt_times.map {|tt| ((tt * backlog_items) / days_iteration).round(0)}.sort
     end
 
   end

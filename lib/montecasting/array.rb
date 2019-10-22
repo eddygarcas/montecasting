@@ -18,7 +18,7 @@ class Array
   end
 
   def group_to_hash
-    uniq.to_h {|s| [s, count{|elem| elem.equal? s}]}
+    uniq.sort.to_h {|s| [s, count{|elem| elem.equal? s}]}
   end
 
   def to_chart

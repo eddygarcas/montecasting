@@ -8,6 +8,7 @@ RSpec.describe Montecasting do
 
   ct_values = [0.33,	0.36,	0.38,	0.36,	0.33,	0.33,	0.42,	0.36,	0.33]
 
+
   it "has a version number" do
     expect(Montecasting::VERSION).not_to be nil
   end
@@ -91,4 +92,6 @@ RSpec.describe Montecasting do
     expect(result[1].last[:y]).to be < 50
     expect(result[2].last[:y]).to be > 90
   end
+
+
 end
