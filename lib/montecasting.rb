@@ -64,20 +64,12 @@ module Montecasting
 
     def self.chart_takt_times(array_of_times = [])
       return nil unless array_of_times.all? Numeric
-      result = Forecasting.takt_times(array_of_times)&.sort.group_to_hash
-      legend = result.to_chart(&:to_i)
-      x_axis = result.to_chart { |value| value.percent_of(1000).ceil(0) }
-      y_axis = result.keys.to_chart { |index| result.values.take(index).inject(0) {|acc, elem| acc + elem}.percent_of(1000).ceil(0) }
-      [legend,x_axis,y_axis]
+      chart_builder Forecasting.takt_times(array_of_times)&.sort.group_to_hash
     end
 
     def self.chart_montecarlo(array_of_times = [], backlog_items = 0, days_iteration = 0)
       return nil unless array_of_times.all? Numeric
-      result = Forecasting.takt_times(array_of_times)&.map! {|elem| ((elem * backlog_items) / days_iteration).ceil(0)}.group_to_hash
-      legend = result.to_chart(&:to_i)
-      x_axis = result.to_chart { |value| value.percent_of(1000).ceil(0) }
-      y_axis = result.keys.to_chart { |index| result.values.take(index).inject(0) {|acc, elem| acc + elem}.percent_of(1000).ceil(0) }
-      [legend,x_axis,y_axis]
+      chart_builder Forecasting.takt_times(array_of_times)&.map! {|elem| ((elem * backlog_items) / days_iteration).ceil(0)}.group_to_hash
     end
 
     def self.chart_cycle_time(array_of_times = [], round_to = 0.5)
@@ -89,6 +81,24 @@ module Montecasting
       data[1] = [*0..max_index].map {|index| {x: index, y: ct_sorted.count {|elem| elem.eql? index}}}
       data[2] = data[1].map.with_index {|sc, index| {x: index, y: data[1].take(index).inject(0) {|acc, elem| acc + elem[:y]}.percent_of(ct_sorted.count).round(1)}}
       data
+    end
+
+    private
+
+    def self.chart_builder chart_hash = {}
+      [series_legend(chart_hash), series_percent_of(chart_hash), series_comulative(chart_hash)]
+    end
+
+    def self.series_legend chart_hash = {}
+      chart_hash.to_chart(&:to_i)
+    end
+
+    def self.series_percent_of chart_hash = {}
+      chart_hash.to_chart {|value| value.percent_of(1000).ceil(0)}
+    end
+
+    def self.series_comulative chart_hash = {}
+      chart_hash.keys.to_chart {|index| chart_hash.values.take(index).inject(0) {|acc, elem| acc + elem}.percent_of(1000).ceil(0)}
     end
   end
 end
