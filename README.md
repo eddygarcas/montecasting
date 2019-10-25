@@ -24,44 +24,44 @@ Or install it yourself as:
 ## Usage
 #### Metrics
 
-    Montecasting::Metrics.variance array_of_time = []
+    Montecasting::Metrics.variance(array_of_time = []) → int or nil
 
-    Montecasting::Metrics.wip_limit array_of_time = [], start_date, end_date
+    Montecasting::Metrics.wip_limit(array_of_time = [], start_date, end_date) → int or nil
     
-    Montecasting::Metrics.thoughtput number_or_items, start_date, end_date
+    Montecasting::Metrics.thoughtput(number_or_items, start_date, end_date) → int or nil
     
-    Montecasting::Metrics.week_days start_date, end_date
-    
+    Montecasting::Metrics.week_days(start_date, end_date) → new_ary 
+        
+#### Forecasting
+
+    Montecasting::Forecasting.takt_times(cycle_time = [], rand_generator = 1000) → new_ary or nil
+
+    Montecasting::Forecasting.montecarlo(takt_times = [], backlog_items = 0, days_iteration = 0) → new_ary or nil
+
 #### Charts
-All methods in this section will be returned in a format that, so far, has been tested using rickshaw JavaScript toolkit for creating interactive real-time graphs.
-Checkout https://github.com/shutterstock/rickshaw for more information.
 
-    > Montecasting::Charts.chart_cycle_time array_of_time = [], round_to = 0.5
-    > [[{:x=>0, :y=>0},
+    Montecasting::Charts.chart_takt_times(array_of_times = []) → [[{:x=> X,:y=> Y}]] on nil
+    
+    Montecasting::Charts.chart_montecarlo(array_of_times = [], backlog_items = 0, days_iteration = 0) → [[{:x=> X,:y=> Y}]] on nil
+    
+    Montecasting::Charts.chart_cycle_time(array_of_time = [], round_to = 0.5) → [[{:x=> X,:y=> Y}]] on nil
+    
+As a result of calling any method from Charts class, the message retrieved will have the following format
+
+    [[{:x=>0, :y=>0},
         {:x=>1, :y=>1},
-        {:x=>2, :y=>2},
-        {:x=>3, :y=>3},
-        {:x=>4, :y=>4},
         ...
         {:x=>15, :y=>15}],
        [{:x=>0, :y=>5},
-        {:x=>1, :y=>20},
-        {:x=>2, :y=>8},
-        {:x=>3, :y=>3},
-        {:x=>4, :y=>0},
         ...
         {:x=>15, :y=>1}],
        [{:x=>0, :y=>0.0},
-        {:x=>1, :y=>13.5},
-        {:x=>2, :y=>67.6},
-        {:x=>3, :y=>89.2},
-        {:x=>4, :y=>97.3},
         ...
         {:x=>15, :y=>97.3}]]
-        
-#### Forecasting
-Nothing implemented yet :-)
-    
+
+So far, this format has been tested using rickshaw JavaScript toolkit for creating interactive real-time graphs.
+Checkout https://github.com/shutterstock/rickshaw for more information.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

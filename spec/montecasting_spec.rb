@@ -28,7 +28,7 @@ RSpec.describe Montecasting do
     result = Montecasting::Metrics.throughput "34",DateTime.now,DateTime.now
     expect(result).to be nil
   end
-  it "Calculates the variance that shouold be 2.43 for the array given" do
+  it "Calculates the variance that should be 2.43 for the array given" do
     result = Montecasting::Metrics.variance variance_array
     expect(result.round(2)).to be 2.43
   end
