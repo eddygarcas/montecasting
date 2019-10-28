@@ -1,7 +1,7 @@
 require 'montecasting/version'
 require 'montecasting/numeric'
-require 'montecasting/array'
-require 'montecasting/hash'
+require 'montecasting/chart'
+
 require 'matrix'
 
 module Montecasting
@@ -52,7 +52,7 @@ module Montecasting
       result.row_vectors.map {|r| (r.inject(:+).to_f / cycle_time.count).round(2)}
     end
 
-    def self.montecarlo(takt_times = [], backlog_items = 0, days_iteration = 0)
+    def self.montecarlo(takt_times = [], backlog_items = 1, days_iteration = 1)
       return nil unless takt_times.all? Numeric
       takt_times.map {|tt| ((tt * backlog_items) / days_iteration).round(0)}.sort
     end
@@ -64,41 +64,27 @@ module Montecasting
 
     def self.chart_takt_times(array_of_times = [])
       return nil unless array_of_times.all? Numeric
-      chart_builder Forecasting.takt_times(array_of_times)&.sort.group_to_hash
+      chart_builder Forecasting.takt_times(array_of_times)&.sort
     end
 
     def self.chart_montecarlo(array_of_times = [], backlog_items = 0, days_iteration = 0)
       return nil unless array_of_times.all? Numeric
-      chart_builder Forecasting.takt_times(array_of_times)&.map! {|elem| ((elem * backlog_items) / days_iteration).ceil(0)}.group_to_hash
+      chart_builder Forecasting.takt_times(array_of_times)&.map! {|elem| ((elem * backlog_items) / days_iteration).ceil(0)}
     end
 
     def self.chart_cycle_time(array_of_times = [], round_to = 0.5)
       return nil unless array_of_times.all? Numeric
-      data = Array.new {Array.new}
       ct_sorted = array_of_times.sort.map {|ct| ct.abs.to_f.round(round_to)}
-      max_index = ct_sorted.last
-      data[0] = [*0..max_index].map {|index| {x: index, y: index}}
-      data[1] = [*0..max_index].map {|index| {x: index, y: ct_sorted.count {|elem| elem.eql? index}}}
-      data[2] = data[1].map.with_index {|sc, index| {x: index, y: data[1].take(index).inject(0) {|acc, elem| acc + elem[:y]}.percent_of(ct_sorted.count).round(1)}}
-      data
+      chart = Chart.new(ct_sorted)
+      [chart.group_by,chart.cumulative(ct_sorted.count)]
     end
 
     private
 
-    def self.chart_builder chart_hash = {}
-      [series_legend(chart_hash), series_percent_of(chart_hash), series_comulative(chart_hash)]
+    def self.chart_builder chart_hash
+      chart = Chart.new(chart_hash)
+      [chart.group_by, chart.percent_of, chart.cumulative]
     end
 
-    def self.series_legend chart_hash = {}
-      chart_hash.to_chart(&:to_i)
-    end
-
-    def self.series_percent_of chart_hash = {}
-      chart_hash.to_chart {|value| value.percent_of(1000).ceil(0)}
-    end
-
-    def self.series_comulative chart_hash = {}
-      chart_hash.keys.to_chart {|index| chart_hash.values.take(index).inject(0) {|acc, elem| acc + elem}.percent_of(1000).ceil(0)}
-    end
   end
 end

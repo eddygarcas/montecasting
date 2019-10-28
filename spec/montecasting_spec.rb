@@ -60,9 +60,6 @@ RSpec.describe Montecasting do
     expect(result.include? 14).to be true
     expect(result.include? 15).to be true
     expect(result.include? 17).to be false
-
-    pp "Project prediction: #{result}"
-
   end
 
   it "Send empty array to get the takt times" do
@@ -78,7 +75,6 @@ RSpec.describe Montecasting do
 
   it "Send an array of cycle time and returns an array containing data for a takt times chart" do
     result = Montecasting::Charts.chart_takt_times(ct_values)
-    pp result
     expect(result.size).to be 3
     expect(result[0].first[:y]).to be_between(1,10)
     expect(result[0].last[:y]).to be_between(1,40)
@@ -87,7 +83,6 @@ RSpec.describe Montecasting do
 
   it "Send an array of cycle times and returns an array containing data for a montecarlo chart" do
     result = Montecasting::Charts.chart_montecarlo(ct_values,200,5)
-    pp result
     expect(result[0].first[:y]).to be_between(400,600)
     expect(result[1].last[:y]).to be < 50
     expect(result[2].last[:y]).to be > 90
