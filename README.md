@@ -40,9 +40,9 @@ Or install it yourself as:
 
 #### Charts
 
-    Montecasting::Charts.chart_takt_times(array_of_times = []) → [[{:x=> X,:y=> Y}]] or nil
+    Montecasting::Charts.chart_takt_times(array_of_time = []) → [[{:x=> X,:y=> Y}]] or nil
     
-    Montecasting::Charts.chart_montecarlo(array_of_times = [], backlog_items = 0, days_iteration = 0) → [[{:x=> X,:y=> Y}]] or nil
+    Montecasting::Charts.chart_montecarlo(array_of_time = [], backlog_items = 0, days_iteration = 0) → [[{:x=> X,:y=> Y}]] or nil
     
     Montecasting::Charts.chart_cycle_time(array_of_time = [], round_to = 0.5) → [[{:x=> X,:y=> Y}]] or nil
     
