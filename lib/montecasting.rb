@@ -69,14 +69,14 @@ module Montecasting
 
     def self.chart_montecarlo(array_of_time = [], backlog_items = 0, days_iteration = 0, rand_generator = 1000)
       return nil unless array_of_time.all? Numeric
-      chart_builder Forecasting.takt_times(array_of_time,rand_generator)&.map! {|elem| ((elem * backlog_items) / days_iteration).ceil(0)}
+      chart_builder Forecasting.takt_times(array_of_time, rand_generator)&.map! {|elem| ((elem * backlog_items) / days_iteration).ceil(0)}
     end
 
     def self.chart_cycle_time(array_of_time = [], round_to = 0.5)
       return nil unless array_of_time.all? Numeric
       ct_sorted = array_of_time.sort.map {|ct| ct.abs.to_f.round(round_to)}
       chart = Chart.new(ct_sorted)
-      [chart.group_by,chart.cumulative(ct_sorted.count)]
+      [chart.group_by, chart.cumulative]
     end
 
     private
