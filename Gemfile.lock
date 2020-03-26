@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    montecasting (0.6.5)
+    montecasting (0.7.0)
 
 GEM
   remote: https://rubygems.org/
