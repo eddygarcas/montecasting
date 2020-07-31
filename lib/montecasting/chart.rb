@@ -25,11 +25,11 @@ class Chart
   end
 
   def percent_of
-    to_h.to_chart {|value| value.percent_of(1000).ceil(0)}
+    to_h.to_chart {|value| value.percent_of(count).ceil(0)}
   end
 
-  def cumulative percent = 1000
-    to_h.keys.to_chart {|index| to_h.values.take(index).inject(0) {|acc, elem| acc + elem}.percent_of(percent).ceil(0)}
+  def cumulative
+    to_h.keys.to_chart {|index| to_h.values.take(index).inject(0) {|acc, elem| acc + elem}.percent_of(count).ceil(0)}
 
   end
 

@@ -88,5 +88,12 @@ RSpec.describe Montecasting do
     expect(result[2].last[:y]).to be > 90
   end
 
+  it "Send an array of cycle times but also generate fewer random takt times" do
+    result = Montecasting::Forecasting.takt_times(ct_values,50)
+    expect(result.count).to be 50
+    result = Montecasting::Forecasting.takt_times(ct_values,100)
+    expect(result.count).to be 100
+  end
+
 
 end
