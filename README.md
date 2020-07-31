@@ -1,7 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/montecasting.svg)](https://badge.fury.io/rb/montecasting)
-![Travis](https://travis-ci.org/eddygarcas/montecasting.svg?branch=master)
-
-# Montecasting
+# Montecasting ![Travis](https://travis-ci.org/eddygarcas/montecasting.svg?branch=master) [![Gem Version](https://badge.fury.io/rb/montecasting.svg)](https://badge.fury.io/rb/montecasting)
 
 Montecasting will provide a set of forecasting techniques to be used on software project management or product development. 
 
